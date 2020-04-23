@@ -43,6 +43,7 @@ Wyjście
 
 #include <iostream>
 
+
 using namespace std;
 
 
@@ -74,27 +75,28 @@ int main()
     int C;
     int n;
 
-    cin >> iloscAut;
+    scanf("%d", &iloscAut);
 
     for (int i=0; i < iloscAut; i++)
     {
-        cin >> n;
+        scanf("%d", &n);
         for (int przedmiot = 0; przedmiot < n; przedmiot++)
         {
-            cin >> P[przedmiot];
+            scanf("%d", &P[przedmiot]);
         }
-        for (int przedmiot = 0; przedmiot < n; przedmiot++) {
-            cin >> W[przedmiot];
+        for (int przedmiot = 0; przedmiot < n; przedmiot++)
+        {
+            scanf("%d", &W[przedmiot]);
             if (W[przedmiot] > 100)
                 P[przedmiot] -= 5;
         }
-        cin >> C;
+        scanf("%d", &C);
         int max_zarobek = wybierzPaczki(C, W, P, n) - 20;
 
         if (max_zarobek > 0)
-            cout << max_zarobek << endl;
+            printf("%d\n", max_zarobek);
         else
-            cout << "0"<< endl;
+            printf("0\n");
     }
 
     return 0;
