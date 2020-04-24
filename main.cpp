@@ -46,6 +46,7 @@ Wyjście
 
 int max(int a, int b)
 {
+    // Wybieranie większej spośród 2 liczb.
     return (a > b)? a : b;
 }
 
@@ -97,17 +98,25 @@ int main()
         }
         scanf("%d", &C);
 
+        // Sumowanie wag wszystkich przedmiotów.
         for (int j=0; j<n; j++) suma += W[j];
 
+        // Sprwadzenie czy suma wszystkich przedmiotów jest mniejsza niż C.
         if (suma <= C)
         {
             for (int j=0; j<n; j++)
             {
+                // Podczas wczytywania danych jest odliczana opłata za przedmioty cięższe niż 100 kg (5zł).
+                // Tutaj sprwadzamy czy jest dla nas opłacalne branie tego przedmiotu (np. jeżeli przedmiot waży 101 kg
+                // a jego wartość wynosi 3 zł - tracimy na tym 2 zł).
                 if (P[j] >= 0)
                     max_zarobek += P[j];
             }
+            // Opłata za samochód.
             max_zarobek -= 20;
         }
+        // Jeżeli suma wag przedmiotów jest więszka niż C samochodu - wykonywana jest funkcja rekurencyjna. Ten sposób
+        // znacznie skraca czas wykonywania programu.
         else max_zarobek = wybierzPaczki(C, W, P, n) - 20;
 
         if (max_zarobek > 0)
