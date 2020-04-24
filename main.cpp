@@ -44,9 +44,6 @@ Wyjście
 #include <iostream>
 
 
-using namespace std;
-
-
 int max(int a, int b)
 {
     return (a > b)? a : b;
@@ -69,16 +66,24 @@ int wybierzPaczki(int C, int W[], int P[], int n)
 
 int main()
 {
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(NULL);
+    std::cout.tie(NULL);
+
     int iloscAut;
     int P[15];
     int W[15];
     int C;
     int n;
 
+
     scanf("%d", &iloscAut);
 
     for (int i=0; i < iloscAut; i++)
     {
+        int max_zarobek = 0;
+        int suma = 0;
+
         scanf("%d", &n);
         for (int przedmiot = 0; przedmiot < n; przedmiot++)
         {
@@ -91,7 +96,19 @@ int main()
                 P[przedmiot] -= 5;
         }
         scanf("%d", &C);
-        int max_zarobek = wybierzPaczki(C, W, P, n) - 20;
+
+        for (int j=0; j<n; j++) suma += W[j];
+
+        if (suma <= C)
+        {
+            for (int j=0; j<n; j++)
+            {
+                if (P[j] >= 0)
+                    max_zarobek += P[j];
+            }
+            max_zarobek -= 20;
+        }
+        else max_zarobek = wybierzPaczki(C, W, P, n) - 20;
 
         if (max_zarobek > 0)
             printf("%d\n", max_zarobek);
