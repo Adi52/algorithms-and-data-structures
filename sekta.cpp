@@ -54,20 +54,65 @@ Wyjście
 2
  */
 
+//def ocalaly(n, k):
+//    if k < 0:
+//        k = n + k + 1
+//
+//    first = 1
+//    gap = 1
+//    ileUmarlo = 0
+//
+//    while n >= 0:
+//        gap *= 2
+//
+//        if k <= ileUmarlo + n/2 and k >= ileUmarlo:
+//            ileJeszczeUmrze = k - ileUmarlo
+//            return first + gap * ileJeszczeUmrze - gap/2
+//
+//
+//        n, odd = divmod(n, 2)
+//        ileUmarlo += n
+//
+//        if odd:
+//            first += gap
+//            ileUmarlo += 1
+//
+//    return ''
+
+
 #include <iostream>
 
 
-int last_man(int n,int x)
+
+int ktyOcalaly(int n, int k)
 {
-    if(n==1 && x==1)
-        return 1;
-    else if(n>1 && x==1)
-        return 2;
-    else if(last_man(n-1,x-1)==n-1)
-        return 1;
-    else
-        return last_man(n-1,x-1)+2;
+    int pierwszyWTurze = 1;
+    int odlegloscMiedzyZywymi = 1;
+    int iluUmarlo = 0;
+    int nieparzysty;
+
+
+    while (n >= 0)
+    {
+        if (k <= iluUmarlo + n / 2 && k >= iluUmarlo) {
+            int iluJeszczeUmrze = k - iluUmarlo;
+            return pierwszyWTurze + odlegloscMiedzyZywymi * 2 * iluJeszczeUmrze - odlegloscMiedzyZywymi;
+        }
+        odlegloscMiedzyZywymi *= 2;
+
+        nieparzysty = n % 2;
+        n = n / 2;
+        iluUmarlo += n;
+
+        if (nieparzysty)
+        {
+            pierwszyWTurze += odlegloscMiedzyZywymi;
+            iluUmarlo++;
+        }
+    }
+    return 0;
 }
+
 
 
 int main() {
@@ -82,10 +127,10 @@ int main() {
 
     for (int i=0; i < liczbaKolejnychLinii; i++)
     {
-        scanf("%d", &n);
-        scanf("%d", &k);
+        scanf("%d %d", &n, &k);
         if (k < 0) k = n + k + 1;
-        printf("%d\n", last_man(n, k));
+        printf("%d\n", ktyOcalaly(n, k));
+
     }
     return 0;
 }
