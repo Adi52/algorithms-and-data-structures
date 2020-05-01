@@ -91,25 +91,36 @@ unsigned long long int ktyOcalaly(long long int n, long long int k)
     unsigned long long int iluUmarlo = 0;
     int nieparzysty;
 
-
-    while (n >= 0)
+    if (n == k)
     {
-        if (k <= iluUmarlo + n / 2 && k >= iluUmarlo) {
-            long long int iluJeszczeUmrze = k - iluUmarlo;
-            return pierwszyWTurze + odlegloscMiedzyZywymi * 2 * iluJeszczeUmrze - odlegloscMiedzyZywymi;
+        while (n > 1) {
+            odlegloscMiedzyZywymi *= 2;
+            nieparzysty = n % 2;
+            n = n / 2;
+            if (nieparzysty) pierwszyWTurze += odlegloscMiedzyZywymi;
         }
-        odlegloscMiedzyZywymi *= 2;
+        return pierwszyWTurze;
 
-        nieparzysty = n % 2;
-        n = n / 2;
-        iluUmarlo += n;
-
-        if (nieparzysty)
+    } else {
+        while (n >= 0)
         {
-            pierwszyWTurze += odlegloscMiedzyZywymi;
-            iluUmarlo++;
+            if (k <= iluUmarlo + n / 2 && k >= iluUmarlo) {
+                long long int iluJeszczeUmrze = k - iluUmarlo;
+                return pierwszyWTurze + odlegloscMiedzyZywymi * 2 * iluJeszczeUmrze - odlegloscMiedzyZywymi;
+            }
+            odlegloscMiedzyZywymi *= 2;
+
+            nieparzysty = n % 2;
+            n = n / 2;
+            iluUmarlo += n;
+
+            if (nieparzysty) {
+                pierwszyWTurze += odlegloscMiedzyZywymi;
+                iluUmarlo++;
+            }
         }
     }
+
     return 0;
 }
 
